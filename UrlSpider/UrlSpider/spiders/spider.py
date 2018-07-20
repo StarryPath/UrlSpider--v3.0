@@ -38,7 +38,7 @@ class UrlSpider(scrapy.Spider):
                 host='localhost',
                 port=3306,
                 user='root',
-                passwd='19980724',
+                passwd='',
                 db='test',
                 )
             cur = conn.cursor()
@@ -79,7 +79,7 @@ class UrlSpider(scrapy.Spider):
                     host='localhost',
                     port=3306,
                     user='root',
-                    passwd='19980724',
+                    passwd='',
                     db='test',
                 )
                 cur = conn.cursor()

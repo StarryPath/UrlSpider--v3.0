@@ -16,7 +16,7 @@ class UrlSpider(scrapy.Spider):
             self.start_urls = ["%s" % category]
 
         def parse(self,response):
-            print 66666666666666666666666666666
+            
             urls_list1 = re.findall(r'href="(https?://[^\[\]\<\>\"\']*?\.[^\[\]\<\>\"\']*?)"', response.body)
             urls_list2 = re.findall(r'href=\'(https?://[^\[\]\<\>\"\']*?\.[^\[\]\<\>\"\']*?)\'', response.body)
             urls_list1.extend(urls_list2)
@@ -43,14 +43,14 @@ class UrlSpider(scrapy.Spider):
                 )
             cur = conn.cursor()
 
-            cur.execute("select url from biao4 where flag2=0 limit 1")
+            cur.execute("select url from url_list where flag2=0 limit 1")
             willstart=cur.fetchone()[0]
             print willstart
 
-            cur.execute('update biao4 set flag2="1" where url="'+willstart+'"')
+            cur.execute('update url_list set flag2="1" where url="'+willstart+'"')
             conn.commit()
 
-            str='update biao4 set flag2=1 where url="'+willstart+'"'
+            str='update url_list set flag2=1 where url="'+willstart+'"'
             print str
             yield Request(willstart, callback=self.parse,errback=self.errback_httpbin,dont_filter=True)
 
@@ -84,13 +84,13 @@ class UrlSpider(scrapy.Spider):
                 )
                 cur = conn.cursor()
 
-                cur.execute("select url from biao4 where flag2=0 limit 1")
+                cur.execute("select url from url_list where flag2=0 limit 1")
                 willstart = cur.fetchone()[0]
                 print willstart
 
-                cur.execute('update biao4 set flag2="1" where url="' + willstart + '"')
+                cur.execute('update url_list set flag2="1" where url="' + willstart + '"')
                 conn.commit()
 
-                str = 'update biao4 set flag2=1 where url="' + willstart + '"'
+                str = 'update url_list set flag2=1 where url="' + willstart + '"'
                 print str
                 yield Request(willstart, callback=self.parse, errback=self.errback_httpbin,dont_filter=True)

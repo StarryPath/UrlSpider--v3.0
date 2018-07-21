@@ -23,7 +23,7 @@ class UrlspiderPipeline(object):
                                                 host='localhost',
                                                 db='test',
                                                 user='root',
-                                                passwd='19980724',
+                                                passwd='',
                                                 cursorclass=MySQLdb.cursors.DictCursor,
                                                 charset='utf8',
                                                 use_unicode=True
@@ -37,10 +37,10 @@ class UrlspiderPipeline(object):
         return item
 
     def insert_into_table(self, conn, item):
-        sql = "insert ignore into biao4(url,flag,flag2) values(%s,%s,%s) "
+        sql = "insert ignore into url_list(url,flag,flag2) values(%s,%s,%s) "
         param = (item['url'], item['flag'],item['flag2'])
         conn.execute(sql, param)
 
-        sql2 = "insert into biao5(fromWhere,toWhere) values(%s,%s) "
+        sql2 = "insert into ft_list(fromWhere,toWhere) values(%s,%s) "
         param2 = (item['fromWhere'], item['url'])
         conn.execute(sql2, param2)
